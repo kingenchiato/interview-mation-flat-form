@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -19,77 +20,60 @@ export default function HomePage() {
 
   return (
     <div>
-      <section className="shell hero-grid">
+      <section className="hero-bleed">
+        <div className="hero-bleed__media">
+          <Image
+            src="/hero-interview-woman.jpg"
+            alt="オンラインインタビューに臨む落ち着いた雰囲気の女性"
+            fill
+            priority
+            sizes="100vw"
+          />
+        </div>
+        <div className="hero-bleed__veil" aria-hidden />
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          className="hero-bleed__content"
+          initial={{ opacity: 0.01, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55 }}
-          className="fade-up"
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--line)] bg-white/70 px-3 py-1 text-xs font-bold text-[var(--brand-deep)]">
-            MVPプロトタイプ / ユニーリサーチ型マッチング
+          <p className="mb-3 text-sm font-bold tracking-[0.14em] text-white/75">
+            企業 × ユーザー インタビューマッチング
           </p>
-          <h1 className="display mb-4 text-[clamp(2.4rem,6vw,4.2rem)] font-extrabold leading-[1.08] tracking-[-0.04em]">
-            インタビューコネクト
-          </h1>
-          <p className="mb-2 max-w-xl text-[clamp(1.15rem,2.4vw,1.55rem)] font-bold leading-snug text-[var(--ink)]">
-            企業の声を集めたい気持ちと、経験を共有したい人をつなぐ。
-          </p>
-          <p className="mb-8 max-w-xl text-[var(--ink-soft)] leading-relaxed">
-            案件掲載・スクリーニング応募・選考・日程調整・実施管理までを、必要最小限の導線で体験できるデモです。
+          <h1>インタビューコネクト</h1>
+          <p className="lede">
+            あなたの経験が、企業の次の一手になる。募集掲載から応募・日程調整・実施管理までを、必要最低限のMVPで体験できます。
           </p>
           <div className="flex flex-wrap gap-3">
             <Link href="/jobs" className="btn btn-primary">
               案件を探す <ArrowRight size={16} />
             </Link>
-            <Link href="/login" className="btn btn-accent">
+            <Link href="/login" className="btn btn-ghost !border-white/30 !bg-white/15 !text-white hover:!bg-white/25">
               3ロールでデモログイン
             </Link>
           </div>
         </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.65, delay: 0.1 }}
-          className="mesh-panel relative p-6"
-        >
-          <div className="mb-8 max-w-sm">
-            <p className="mb-2 text-sm font-semibold text-white/75">ライブ感のあるマッチング体験</p>
-            <h2 className="display text-3xl font-extrabold leading-tight">
-              募集から実施完了まで、ひと続きのワークフロー
-            </h2>
-          </div>
-          <div className="floating-card left-6 top-[48%] max-w-[220px]">
-            <div className="mb-1 text-xs text-white/70">応募者</div>
-            <div className="font-bold">佐藤 美咲 / 東京都</div>
-            <div className="mt-1 text-sm text-white/80">事前設問 3/3 回答済</div>
-          </div>
-          <div className="floating-card right-5 top-[28%] max-w-[200px]">
-            <div className="mb-1 text-xs text-white/70">謝礼</div>
-            <div className="display text-2xl font-extrabold">¥6,000</div>
-            <div className="text-sm text-white/80">60分 / Google Meet</div>
-          </div>
-          <div className="floating-card bottom-6 right-8 max-w-[230px]">
-            <div className="mb-1 text-xs text-white/70">ステータス</div>
-            <div className="font-bold">日程確定 → 実施待ち</div>
-            <div className="mt-1 text-sm text-white/80">9/14 15:00</div>
-          </div>
-        </motion.div>
       </section>
 
-      <section className="shell pb-14">
+      <section className="shell py-14">
         <div className="stat-strip mb-10">
           {[
             { icon: Building2, label: "企業", text: "案件作成・選考・日程調整" },
             { icon: Users, label: "ユーザー", text: "応募・事前設問・実施確認" },
             { icon: ShieldCheck, label: "運営", text: "審査・アカウント・案件管理" },
-          ].map((item) => (
-            <div key={item.label} className="surface p-5">
+          ].map((item, i) => (
+            <motion.div
+              key={item.label}
+              className="surface p-5"
+              initial={{ opacity: 0.2, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
+            >
               <item.icon className="mb-3 text-[var(--brand)]" size={22} />
               <div className="display text-lg font-extrabold">{item.label}</div>
               <p className="mt-1 text-sm text-[var(--ink-soft)]">{item.text}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
 

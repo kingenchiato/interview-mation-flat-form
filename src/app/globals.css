@@ -292,20 +292,81 @@ textarea {
   border-radius: 999px;
 }
 
-.hero-grid {
+.hero-bleed {
+  position: relative;
+  min-height: calc(100vh - 72px);
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 2rem;
-  align-items: center;
-  min-height: calc(100vh - 88px);
-  padding: 2rem 0 3rem;
+  align-items: end;
+  overflow: hidden;
+  isolation: isolate;
 }
 
-@media (max-width: 900px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-    min-height: auto;
-    padding-top: 1.25rem;
+.hero-bleed__media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.hero-bleed__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  transform: scale(1.02);
+  animation: heroZoom 14s ease-out forwards;
+}
+
+.hero-bleed__veil {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(8, 40, 38, 0.78) 0%, rgba(8, 40, 38, 0.45) 42%, rgba(8, 40, 38, 0.18) 70%, rgba(8, 40, 38, 0.08) 100%),
+    linear-gradient(180deg, rgba(8, 40, 38, 0.25) 0%, rgba(8, 40, 38, 0.55) 100%);
+}
+
+.hero-bleed__content {
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 4.5rem 0 3.5rem;
+  color: white;
+}
+
+.hero-bleed__content h1 {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 7vw, 4.6rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.hero-bleed__content .lede {
+  margin: 0 0 1.5rem;
+  max-width: 34rem;
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@keyframes heroZoom {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1.02);
+  }
+}
+
+@media (max-width: 700px) {
+  .hero-bleed {
+    min-height: 78vh;
+  }
+
+  .hero-bleed__veil {
+    background:
+      linear-gradient(180deg, rgba(8, 40, 38, 0.35) 0%, rgba(8, 40, 38, 0.78) 55%, rgba(8, 40, 38, 0.88) 100%);
   }
 }
 
