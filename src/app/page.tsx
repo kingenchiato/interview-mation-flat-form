@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -12,28 +11,27 @@ import {
   Users,
 } from "lucide-react";
 import { JobCard } from "@/components/JobCard";
+import { assetPath } from "@/lib/paths";
 import { useAppStore } from "@/lib/store";
 
 export default function HomePage() {
   const { jobs } = useAppStore();
   const published = jobs.filter((j) => j.status === "published").slice(0, 3);
+  const heroSrc = assetPath("/hero-interview-woman.jpg");
 
   return (
     <div>
       <section className="hero-bleed">
-        <div className="hero-bleed__media">
-          <Image
-            src="/hero-interview-woman.jpg"
-            alt="オンラインインタビューに臨む落ち着いた雰囲気の女性"
-            fill
-            priority
-            sizes="100vw"
-          />
-        </div>
+        <div
+          className="hero-bleed__media"
+          style={{ backgroundImage: `url("${heroSrc}")` }}
+          role="img"
+          aria-label="オンラインインタビューに臨む落ち着いた雰囲気の女性"
+        />
         <div className="hero-bleed__veil" aria-hidden />
         <motion.div
           className="hero-bleed__content"
-          initial={{ opacity: 0.01, y: 12 }}
+          initial={{ opacity: 0.2, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
